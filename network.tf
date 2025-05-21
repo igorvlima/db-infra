@@ -36,6 +36,10 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
+resource "aws_eip" "nat" {
+  vpc = true
+}
+
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.private_a.id
@@ -43,10 +47,6 @@ resource "aws_nat_gateway" "nat" {
   tags = {
     Name = "lanchonete-nat"
   }
-}
-
-resource "aws_eip" "nat" {
-  vpc = true
 }
 
 resource "aws_route_table" "private" {
@@ -78,11 +78,11 @@ resource "aws_security_group" "rds_sg" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description      = "Postgres from anywhere (ajuste conforme necessário)"
-    from_port        = 5432
-    to_port          = 5432
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"] #
+    description = "Postgres from anywhere (ajuste conforme necessário)"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
