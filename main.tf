@@ -9,11 +9,11 @@ resource "aws_db_subnet_group" "default" {
 
 resource "aws_db_instance" "postgres" {
   identifier             = "lanchonete-db"
-  allocated_storage      = var.db_allocated_storage
+  allocated_storage      = 20
   engine                 = "postgres"
   engine_version         = "15.3"
-  instance_class         = var.db_instance_class
-  db_name                = var.db_name
+  instance_class         = "db.t3.micro"
+  db_name                = "lanchonete"
   username               = var.db_username
   password               = var.db_password
   db_subnet_group_name   = aws_db_subnet_group.default.name
