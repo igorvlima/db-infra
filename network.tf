@@ -37,7 +37,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_eip" "nat" {
-  vpc = true
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "nat" {
@@ -78,7 +78,7 @@ resource "aws_security_group" "rds_sg" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "Postgres from anywhere (ajuste conforme necessário)"
+    description = "Postgres database"
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
